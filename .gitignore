@@ -34,3 +34,6 @@ Temporary Items
 
 
 .n8n
+
+# Database volume folder
+postgres-data

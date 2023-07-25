@@ -14,7 +14,7 @@ services:
       - ./init-data.sh:/docker-entrypoint-initdb.d/init-data.sh
 
   n8n:
-    image: n8nio/n8n:1.0.4
+    image: n8nio/n8n:1.0.5
     # restart: always
     environment:
       - DB_TYPE=postgresdb

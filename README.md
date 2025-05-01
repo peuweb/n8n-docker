@@ -5,7 +5,7 @@ A flexible Docker template for running n8n with support for multiple database ty
 ## Features
 
 - Support for multiple databases (SQLite, PostgreSQL, MySQL, MongoDB)
-- Flexible network modes (bridge and host) with smart port handling
+- Flexible network configuration
 - Task Runners enabled by default for secure code execution
 - Basic authentication configuration
 - Customizable environment variables
@@ -42,18 +42,30 @@ The n8n interface will be available at: `http://localhost:5678`
 
 ## Network Modes
 
-This template supports two main network modes:
+This template supports different network modes depending on your operating system:
 
-### Bridge Mode (Default)
+### Bridge Mode (Default, recommended for all systems)
+```bash
+# Start with bridge mode
+docker compose --profile bridge-mode up -d
+```
 - Uses Docker's default bridge networking
 - Ports are mapped from the container to the host
+- Works on all operating systems (Linux, macOS, Windows)
 - Configure using port mappings in the `ports` section
 
-### Host Mode
+### Host Mode (Linux only)
+```bash
+# Start with host mode (Linux only)
+docker compose up -d
+```
+- Only fully supported on Linux systems
 - Container uses the host's network directly
-- Ports are managed by environment variables
-- No port mapping needed
-- Useful for specific network requirements or performance
+- Ports are managed by environment variables (`N8N_PORT` and `N8N_RUNNERS_BROKER_PORT`)
+- Not recommended for macOS or Windows users
+- Useful for specific network requirements or performance on Linux
+
+> **Note**: On macOS and Windows, the host network mode is not fully supported due to the way Docker is implemented on these systems. Please use bridge mode instead.
 
 ## Environment Variables
 
@@ -108,9 +120,9 @@ Check the `env.example` file for a complete template with default values. Below 
 
 ## Management Commands
 
-Start the application:
+Start the application (recommended way):
 ```bash
-docker compose up -d
+docker compose --profile bridge-mode up -d
 ```
 
 Stop the application:

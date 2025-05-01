@@ -4,9 +4,9 @@ services:
     restart: always
     network_mode: ${NETWORK_MODE:-bridge}
     environment:
-      # Port configuration (used when network_mode=host)
-      - N8N_PORT=${N8N_PORT:-5678}
-      - N8N_RUNNERS_BROKER_PORT=${N8N_RUNNERS_BROKER_PORT:-5679}
+      # Port configuration (these are the ports n8n will listen on)
+      - N8N_PORT=${INTERNAL_PORT:-5678}
+      - N8N_RUNNERS_BROKER_PORT=${INTERNAL_BROKER_PORT:-5679}
       
       # Database configuration
       - DB_TYPE=${DB_TYPE:-sqlite}
@@ -36,7 +36,6 @@ services:
       - N8N_RUNNERS_MODE=${N8N_RUNNERS_MODE:-internal}
       - N8N_RUNNERS_TIMEOUT=${N8N_RUNNERS_TIMEOUT:-60}
       - N8N_RUNNERS_MAX_CONCURRENCY=${N8N_RUNNERS_MAX_CONCURRENCY:-5}
-      - N8N_RUNNERS_BROKER_PORT=${N8N_RUNNERS_BROKER_PORT:-5679}
       - N8N_RUNNERS_BROKER_LISTEN_ADDRESS=${N8N_RUNNERS_BROKER_LISTEN_ADDRESS:-0.0.0.0}
 
       # Authentication settings
@@ -51,9 +50,10 @@ services:
       - WEBHOOK_URL=${WEBHOOK_URL}
       - GENERIC_TIMEZONE=${GENERIC_TIMEZONE:-UTC}
       - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
-      
     ports:
-      - ${NETWORK_MODE:-bridge} != host && ${N8N_PORT:-5678}:5678
-      - ${NETWORK_MODE:-bridge} != host && ${N8N_RUNNERS_BROKER_PORT:-5679}:5679
+      - "${EXTERNAL_PORT:-5678}:${INTERNAL_PORT:-5678}"
+      - "${EXTERNAL_BROKER_PORT:-5679}:${INTERNAL_BROKER_PORT:-5679}"
+    profiles:
+      - bridge-mode
     #volumes:
     #  - ./.n8n:/home/node/.n8n

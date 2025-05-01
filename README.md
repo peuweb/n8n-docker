@@ -46,6 +46,7 @@ Check the `env.example` file for a complete template with default values. Below 
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
 | **Database Settings** ||||
+| `N8N_VERSION` | n8n version to use | latest | No |
 | `DB_TYPE` | Database type (sqlite, postgresdb, mysqldb, mongodb) | sqlite | Yes |
 | `DB_HOST` | Database host | localhost | Yes* |
 | `DB_PORT` | Database port | 5432 | Yes* |

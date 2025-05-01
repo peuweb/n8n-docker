@@ -45,8 +45,11 @@ Check the `env.example` file for a complete template with default values. Below 
 
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
-| **Database Settings** ||||
+| **General Settings** ||||
 | `N8N_VERSION` | n8n version to use | latest | No |
+| **Security Settings** ||||
+| `N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS` | Enforce secure file permissions on settings files | true | No |
+| **Database Settings** ||||
 | `DB_TYPE` | Database type (sqlite, postgresdb, mysqldb, mongodb) | sqlite | Yes |
 | `DB_HOST` | Database host | localhost | Yes* |
 | `DB_PORT` | Database port | 5432 | Yes* |

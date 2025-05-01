@@ -32,6 +32,9 @@ services:
       - N8N_BASIC_AUTH_USER=${N8N_BASIC_AUTH_USER}
       - N8N_BASIC_AUTH_PASSWORD=${N8N_BASIC_AUTH_PASSWORD}
       
+      # Security settings
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      
       # Other settings
       - WEBHOOK_URL=${WEBHOOK_URL}
       - GENERIC_TIMEZONE=${GENERIC_TIMEZONE:-UTC}

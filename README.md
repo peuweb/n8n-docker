@@ -35,6 +35,10 @@ cp env.example .env
 
 3. Start the application:
 ```bash
+# For macOS and Windows users (recommended)
+docker compose --profile bridge-mode up -d
+
+# For Linux users who want to use host networking
 docker compose up -d
 ```
 

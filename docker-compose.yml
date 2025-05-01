@@ -2,6 +2,7 @@ services:
   n8n:
     image: n8nio/n8n:${N8N_VERSION:-latest}
     restart: always
+    network_mode: ${NETWORK_MODE:-bridge}
     environment:
       # Database type configuration
       - DB_TYPE=${DB_TYPE:-sqlite}

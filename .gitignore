@@ -37,3 +37,6 @@ Temporary Items
 
 # Database volume folder
 postgres-data
+
+# env
+.env

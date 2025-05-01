@@ -5,6 +5,7 @@ A flexible Docker template for running n8n with support for multiple database ty
 ## Features
 
 - Support for multiple databases (SQLite, PostgreSQL, MySQL, MongoDB)
+- Flexible network modes (bridge and host) with smart port handling
 - Task Runners enabled by default for secure code execution
 - Basic authentication configuration
 - Customizable environment variables
@@ -39,15 +40,36 @@ docker compose up -d
 
 The n8n interface will be available at: `http://localhost:5678`
 
+## Network Modes
+
+This template supports two main network modes:
+
+### Bridge Mode (Default)
+- Uses Docker's default bridge networking
+- Ports are mapped from the container to the host
+- Configure using port mappings in the `ports` section
+
+### Host Mode
+- Container uses the host's network directly
+- Ports are managed by environment variables
+- No port mapping needed
+- Useful for specific network requirements or performance
+
 ## Environment Variables
 
 Check the `env.example` file for a complete template with default values. Below are all available configuration options:
 
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
+| **Network & Port Settings** ||||
+| `NETWORK_MODE` | Docker network mode (bridge, host) | bridge | No |
+| `N8N_PORT` | Main n8n port (used in both network modes) | 5678 | No |
+| `N8N_RUNNERS_BROKER_PORT` | Task runners broker port (used in both network modes) | 5679 | No |
 | **General Settings** ||||
 | `N8N_VERSION` | n8n version to use | latest | No |
-| `NETWORK_MODE` | Docker network mode (bridge, host, none) | bridge | No |
+| `WEBHOOK_URL` | Base URL for webhooks | http://localhost:5678 | No |
+| `GENERIC_TIMEZONE` | Application timezone | UTC | No |
+| `N8N_ENCRYPTION_KEY` | Encryption key for credentials | - | Yes |
 | **Security Settings** ||||
 | `N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS` | Enforce secure file permissions on settings files | true | No |
 | **Database Settings** ||||
@@ -73,17 +95,11 @@ Check the `env.example` file for a complete template with default values. Below 
 | `N8N_RUNNERS_MODE` | Runner execution mode (internal/external) | internal | No |
 | `N8N_RUNNERS_TIMEOUT` | Maximum task execution time (seconds) | 60 | No |
 | `N8N_RUNNERS_MAX_CONCURRENCY` | Maximum concurrent tasks | 5 | No |
-| `N8N_RUNNERS_BROKER_PORT` | Task runners broker port | 5679 | No |
 | `N8N_RUNNERS_BROKER_LISTEN_ADDRESS` | Broker listen address | 0.0.0.0 | No |
 | **Authentication** ||||
 | `N8N_BASIC_AUTH_ACTIVE` | Enable basic authentication | false | No |
 | `N8N_BASIC_AUTH_USER` | Basic auth username | admin | Yes**** |
 | `N8N_BASIC_AUTH_PASSWORD` | Basic auth password | - | Yes**** |
-| **General Settings** ||||
-| `WEBHOOK_URL` | Base URL for webhooks | http://localhost:5678 | No |
-| `N8N_PORT` | Main n8n port | 5678 | No |
-| `GENERIC_TIMEZONE` | Application timezone | UTC | No |
-| `N8N_ENCRYPTION_KEY` | Encryption key for credentials | - | Yes |
 
 \* Required if using PostgreSQL (DB_TYPE=postgresdb)
 \** Required if using MySQL (DB_TYPE=mysqldb)

@@ -47,17 +47,27 @@ Check the `env.example` file for a complete template with default values. Below 
 |----------|-------------|---------|----------|
 | **General Settings** ||||
 | `N8N_VERSION` | n8n version to use | latest | No |
+| `NETWORK_MODE` | Docker network mode (bridge, host, none) | bridge | No |
 | **Security Settings** ||||
 | `N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS` | Enforce secure file permissions on settings files | true | No |
 | **Database Settings** ||||
 | `DB_TYPE` | Database type (sqlite, postgresdb, mysqldb, mongodb) | sqlite | Yes |
-| `DB_HOST` | Database host | localhost | Yes* |
-| `DB_PORT` | Database port | 5432 | Yes* |
-| `DB_DATABASE` | Database name | n8n | Yes* |
-| `DB_USER` | Database user | root | Yes* |
-| `DB_PASSWORD` | Database password | - | Yes* |
-| `DB_CONNECTION_URL` | MongoDB connection URL | - | Yes** |
-| `DB_SQLITE_PATH` | SQLite database path | /home/node/.n8n/database.sqlite | Yes*** |
+| **PostgreSQL Settings** ||||
+| `DB_POSTGRESDB_HOST` | PostgreSQL host | postgres | Yes* |
+| `DB_POSTGRESDB_PORT` | PostgreSQL port | 5432 | Yes* |
+| `DB_POSTGRESDB_DATABASE` | PostgreSQL database name | n8n | Yes* |
+| `DB_POSTGRESDB_USER` | PostgreSQL user | postgres | Yes* |
+| `DB_POSTGRESDB_PASSWORD` | PostgreSQL password | - | Yes* |
+| **MySQL Settings** ||||
+| `DB_MYSQLDB_HOST` | MySQL host | mysql | Yes** |
+| `DB_MYSQLDB_PORT` | MySQL port | 3306 | Yes** |
+| `DB_MYSQLDB_DATABASE` | MySQL database name | n8n | Yes** |
+| `DB_MYSQLDB_USER` | MySQL user | root | Yes** |
+| `DB_MYSQLDB_PASSWORD` | MySQL password | - | Yes** |
+| **MongoDB Settings** ||||
+| `DB_MONGODB_CONNECTION_URL` | MongoDB connection URL | - | Yes*** |
+| **SQLite Settings** ||||
+| `DB_SQLITE_PATH` | SQLite database path | /home/node/.n8n/database.sqlite | Yes**** |
 | **Task Runners** ||||
 | `N8N_RUNNERS_ENABLED` | Enable task runners | true | No |
 | `N8N_RUNNERS_MODE` | Runner execution mode (internal/external) | internal | No |
@@ -75,10 +85,10 @@ Check the `env.example` file for a complete template with default values. Below 
 | `GENERIC_TIMEZONE` | Application timezone | UTC | No |
 | `N8N_ENCRYPTION_KEY` | Encryption key for credentials | - | Yes |
 
-\* Required if using PostgreSQL or MySQL
-\** Required if using MongoDB
-\*** Required if using SQLite
-\**** Required if basic auth is enabled
+\* Required if using PostgreSQL (DB_TYPE=postgresdb)
+\** Required if using MySQL (DB_TYPE=mysqldb)
+\*** Required if using MongoDB (DB_TYPE=mongodb)
+\**** Required if using SQLite (DB_TYPE=sqlite)
 
 ## Management Commands
 

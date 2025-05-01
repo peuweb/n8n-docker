@@ -4,22 +4,29 @@ services:
     restart: always
     network_mode: ${NETWORK_MODE:-bridge}
     environment:
-      # Database type configuration
+      # Database configuration
       - DB_TYPE=${DB_TYPE:-sqlite}
       
-      # General database settings
-      - DB_HOST=${DB_HOST:-localhost}
-      - DB_PORT=${DB_PORT:-5432}
-      - DB_DATABASE=${DB_DATABASE:-n8n}
-      - DB_USER=${DB_USER:-root}
-      - DB_PASSWORD=${DB_PASSWORD}
+      # PostgreSQL specific settings
+      - DB_POSTGRESDB_HOST=${DB_POSTGRESDB_HOST:-postgres}
+      - DB_POSTGRESDB_PORT=${DB_POSTGRESDB_PORT:-5432}
+      - DB_POSTGRESDB_DATABASE=${DB_POSTGRESDB_DATABASE:-n8n}
+      - DB_POSTGRESDB_USER=${DB_POSTGRESDB_USER:-postgres}
+      - DB_POSTGRESDB_PASSWORD=${DB_POSTGRESDB_PASSWORD}
       
-      # Connection URL (for MongoDB or special connections)
-      - DB_CONNECTION_URL=${DB_CONNECTION_URL}
+      # MySQL specific settings
+      - DB_MYSQLDB_HOST=${DB_MYSQLDB_HOST:-mysql}
+      - DB_MYSQLDB_PORT=${DB_MYSQLDB_PORT:-3306}
+      - DB_MYSQLDB_DATABASE=${DB_MYSQLDB_DATABASE:-n8n}
+      - DB_MYSQLDB_USER=${DB_MYSQLDB_USER:-root}
+      - DB_MYSQLDB_PASSWORD=${DB_MYSQLDB_PASSWORD}
       
-      # SQLite path
+      # MongoDB specific settings
+      - DB_MONGODB_CONNECTION_URL=${DB_MONGODB_CONNECTION_URL}
+      
+      # SQLite specific settings
       - DB_SQLITE_PATH=${DB_SQLITE_PATH:-/home/node/.n8n/database.sqlite}
-
+      
       # Task Runners
       - N8N_RUNNERS_ENABLED=true
       - N8N_RUNNERS_MODE=${N8N_RUNNERS_MODE:-internal}
@@ -44,5 +51,5 @@ services:
     ports:
       - ${N8N_PORT:-5678}:5678
       - ${N8N_RUNNERS_BROKER_PORT:-5679}:5679
-    # volumes:
-    #   - ./.n8n:/home/node/.n8n
+    #volumes:
+    #  - ./.n8n:/home/node/.n8n

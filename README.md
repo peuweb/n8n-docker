@@ -164,3 +164,15 @@ Feel free to open issues and pull requests!
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+
+## How to update
+
+```shell
+docker compose pull; docker compose down; docker compose up -d
+```
+
+bridge mode:
+```shell
+docker compose --profile bridge-mode pull; docker compose --profile bridge-mode down; docker compose --profile bridge-mode up -d;
+```
